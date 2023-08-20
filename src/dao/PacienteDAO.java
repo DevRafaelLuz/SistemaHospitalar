@@ -175,5 +175,39 @@ public class PacienteDAO {
             con.close();
         }
     }
+    
+    public Paciente consultar(int id) throws SQLException {
+
+        try {
+            this.con = this.conexao.getConexao();
+            PreparedStatement pst;
+            ResultSet rs;
+            
+            Paciente paciente = new Paciente();
+            pst = con.prepareStatement("SELECT * FROM paciente WHERE ID_PACIENTE = ?");
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                paciente.setIdPaciente(rs.getInt("id"));
+                paciente.setNome(rs.getString("nome"));
+                paciente.setEndereco(rs.getString("endereço"));
+                paciente.setDataNascimento(rs.getDate("dataNascimento"));                
+                paciente.setTelefone(rs.getString("telefone"));
+                paciente.setCpf(rs.getString("CPF"));         
+                paciente.setRg(rs.getString("RG"));
+                paciente.setEmail(rs.getString("email"));
+                paciente.setConvenio(rs.getInt("convênio"));
+                return paciente;
+            } else {
+                return null;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao conectar: " + ex.getMessage());
+            return null;
+        } finally {
+            con.close();
+        }
+    }
 
 }
