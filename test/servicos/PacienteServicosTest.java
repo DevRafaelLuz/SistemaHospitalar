@@ -2,7 +2,8 @@ package servicos;
 
 import dao.PacienteDAO;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import modelo.Paciente;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -28,6 +29,7 @@ public class PacienteServicosTest {
     
     @Before
     public void setUp() {
+        pacienteDao = new PacienteDAO();
     }
     
     @After
@@ -59,9 +61,10 @@ public class PacienteServicosTest {
     }
     
     @Test
-    public void testarBuscaDataNascPaciente() throws SQLException {
+    public void testarBuscaDataNascPaciente() throws SQLException, ParseException {
         Paciente pacienteEncontrado = pacienteDao.consultar(1);
-        assertEquals("1990-01-01", pacienteEncontrado.getDataNascimento());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        assertEquals(sdf.parse("1990/01/01"), pacienteEncontrado.getDataNascimento());
     }
     
 }

@@ -183,22 +183,21 @@ public class PacienteDAO {
             PreparedStatement pst;
             ResultSet rs;
             
-            Paciente paciente = new Paciente();
+            Paciente pac = new Paciente();
             pst = con.prepareStatement("SELECT * FROM paciente WHERE ID_PACIENTE = ?");
             pst.setInt(1, id);
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                paciente.setIdPaciente(rs.getInt("id"));
-                paciente.setNome(rs.getString("nome"));
-                paciente.setEndereco(rs.getString("endereço"));
-                paciente.setDataNascimento(rs.getDate("dataNascimento"));                
-                paciente.setTelefone(rs.getString("telefone"));
-                paciente.setCpf(rs.getString("CPF"));         
-                paciente.setRg(rs.getString("RG"));
-                paciente.setEmail(rs.getString("email"));
-                paciente.setConvenio(rs.getInt("convênio"));
-                return paciente;
+                pac.setIdPaciente(rs.getInt("ID_PACIENTE"));
+                pac.setNome(rs.getString("NOME"));
+                pac.setEndereco(rs.getString("ENDERECO"));
+                pac.setDataNascimento(rs.getDate("DATA_NASC"));
+                pac.setTelefone(rs.getString("TELEFONE"));
+                pac.setCpf(rs.getString("CPF"));
+                pac.setRg(rs.getString("RG"));
+                pac.setIdConvenio(rs.getInt("ID_CONVENIO_FK"));
+                return pac;
             } else {
                 return null;
             }
